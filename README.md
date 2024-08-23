@@ -37,6 +37,7 @@ Overview of key infrastructure components
 - WebSocket
 - Amplify
 - AWS CDK
+- ECS Fargate
 - S3
 - CloudFront
 - Aurora PostgreSQL
