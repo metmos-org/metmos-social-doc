@@ -15,7 +15,9 @@ Overview of key infrastructure components
 
 ## API Documentation
 
-TBA
+[Social API](https://metmos-org.github.io/metmos-social-doc/people-api) - Connect, Share, Chat
+
+[Marketplace API](https://metmos-org.github.io/metmos-social-doc/listing-api) - Listing, Offer, Payment
 
 ## Tech Stacks and Tools
 
