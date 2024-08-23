@@ -1,0 +1,821 @@
+{
+	"info": {
+		"_postman_id": "bdd13d79-b739-4069-a2f1-3431f7d7306d",
+		"name": "Listing API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30857123"
+	},
+	"item": [
+		{
+			"name": "/health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ListingApiDomain}}/health",
+					"host": [
+						"{{ListingApiDomain}}"
+					],
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/listings",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-cognito-user-id",
+						"value": "{{x-cognito-user-id}}",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "{{AccessToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{ListingApiDomain}}/listings?updatedAtStart=2023-11-10T04:37:50.375Z&limit=20",
+					"host": [
+						"{{ListingApiDomain}}"
+					],
+					"path": [
+						"listings"
+					],
+					"query": [
+						{
+							"key": "updatedAtStart",
+							"value": "2023-11-10T04:37:50.375Z"
+						},
+						{
+							"key": "limit",
+							"value": "20"
+						},
+						{
+							"key": "personUuid",
+							"value": "0eace9e0-d169-4a91-b3b6-6edeb1fc11f0",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/listings/mine",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-cognito-user-id",
+						"value": "{{x-cognito-user-id}}",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{AccessToken}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{ListingApiDomain}}/listings/mine",
+					"host": [
+						"{{ListingApiDomain}}"
+					],
+					"path": [
+						"listings",
+						"mine"
+					],
+					"query": [
+						{
+							"key": "personUuid",
+							"value": "0eace9e0-d169-4a91-b3b6-6edeb1fc11f0",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/listings/{uuid}",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-cognito-user-id",
+						"value": "{{x-cognito-user-id}}",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "{{AccessToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{ListingApiDomain}}/listings/85cb2e5e-804c-4af4-8abd-74211310c6a1",
+					"host": [
+						"{{ListingApiDomain}}"
+					],
+					"path": [
+						"listings",
+						"85cb2e5e-804c-4af4-8abd-74211310c6a1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/listings",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-cognito-user-id",
+						"value": "{{x-cognito-user-id}}",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "{{AccessToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"listingType\": \"SERVICE_SALE\",\n  \"title\": \"Painting\",\n  \"description\": \"aaaaaaaaa\",\n  \"price\": \"0.0000002\",\n  \"currencyType\": \"CRYPTO\",\n  \"currency\": \"ETH\",\n  \"categoryUuid\": \"49f72173-9c44-427c-80d6-9f7f8a65116f\",\n  \"additionalFields\": {\n    \"serviceDate\": \"2023-12-14\"\n  },\n  \"location\": {\n    \"suburb\": \"Sunnyvale\",\n    \"state_region\": \"California\",\n    \"country\": \"USA\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ListingApiDomain}}/listings",
+					"host": [
+						"{{ListingApiDomain}}"
+					],
+					"path": [
+						"listings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/listings/{uuid}",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "x-cognito-user-id",
+						"value": "{{x-cognito-user-id}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"Painting fence\",\n   \"additionalFields\": {\n        \"serviceDate\": \"2023-12-28\"\n   },\n  \"location\": {\n    \"suburb\": \"North Ryde\",\n    \"state_region\": \"NSW\",\n    \"country\": \"Australia\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ListingApiDomain}}/listings/85cb2e5e-804c-4af4-8abd-74211310c6a1",
+					"host": [
+						"{{ListingApiDomain}}"
+					],
+					"path": [
+						"listings",
+						"85cb2e5e-804c-4af4-8abd-74211310c6a1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/listings/{uuid}/publish",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "x-cognito-user-id",
+						"value": "{{x-cognito-user-id}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{ListingApiDomain}}/listings/fba47127-5281-48ae-ac95-49606560c0e4/publish",
+					"host": [
+						"{{ListingApiDomain}}"
+					],
+					"path": [
+						"listings",
+						"fba47127-5281-48ae-ac95-49606560c0e4",
+						"publish"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/listings/{uuid}/unpublish",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "x-cognito-user-id",
+						"value": "{{x-cognito-user-id}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{ListingApiDomain}}/listings/fba47127-5281-48ae-ac95-49606560c0e4/unpublish",
+					"host": [
+						"{{ListingApiDomain}}"
+					],
+					"path": [
+						"listings",
+						"fba47127-5281-48ae-ac95-49606560c0e4",
+						"unpublish"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/listings/{uuid}/cancel",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "x-cognito-user-id",
+						"value": "{{x-cognito-user-id}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{ListingApiDomain}}/listings/fba47127-5281-48ae-ac95-49606560c0e4/cancel",
+					"host": [
+						"{{ListingApiDomain}}"
+					],
+					"path": [
+						"listings",
+						"fba47127-5281-48ae-ac95-49606560c0e4",
+						"cancel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/listings/{uuid}",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "x-cognito-user-id",
+						"value": "{{x-cognito-user-id}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{ListingApiDomain}}/listings/0572f013-779c-483a-acb7-017b7613b5ff",
+					"host": [
+						"{{ListingApiDomain}}"
+					],
+					"path": [
+						"listings",
+						"0572f013-779c-483a-acb7-017b7613b5ff"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/offers",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-cognito-user-id",
+						"value": "{{x-cognito-user-id}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{ListingApiDomain}}/offers?listingUuid=d4b057f3-44b6-438b-abc0-5f58c6e5f701",
+					"host": [
+						"{{ListingApiDomain}}"
+					],
+					"path": [
+						"offers"
+					],
+					"query": [
+						{
+							"key": "personUuid",
+							"value": "28140b69-cc66-4aed-a39c-fd00d7160575",
+							"disabled": true
+						},
+						{
+							"key": "listingUuid",
+							"value": "d4b057f3-44b6-438b-abc0-5f58c6e5f701"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/offers/mine",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-cognito-user-id",
+						"value": "{{x-cognito-user-id}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{ListingApiDomain}}/offers/mine",
+					"host": [
+						"{{ListingApiDomain}}"
+					],
+					"path": [
+						"offers",
+						"mine"
+					],
+					"query": [
+						{
+							"key": "personUuid",
+							"value": "28140b69-cc66-4aed-a39c-fd00d7160575",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/offers",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-cognito-user-id",
+						"value": "{{x-cognito-user-id}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"listingUuid\": \"fba47127-5281-48ae-ac95-49606560c0e4\",\n  \"price\": \"1.2\",\n  \"comment\": \"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ListingApiDomain}}/offers",
+					"host": [
+						"{{ListingApiDomain}}"
+					],
+					"path": [
+						"offers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/offers/{uuid}",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "x-cognito-user-id",
+						"value": "{{x-cognito-user-id}}",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "{{AccessToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"price\": \"1.15\",\n  \"comment\": \"My final offer\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ListingApiDomain}}/offers/9341d533-f239-4837-b4db-d3fad46b134e",
+					"host": [
+						"{{ListingApiDomain}}"
+					],
+					"path": [
+						"offers",
+						"9341d533-f239-4837-b4db-d3fad46b134e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "offers/{uuid}/accept",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "x-cognito-user-id",
+						"value": "{{x-cognito-user-id}}",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{AccessToken}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{ListingApiDomain}}/offers/6e10cff7-d212-483b-a461-651ca6ebd520/accept",
+					"host": [
+						"{{ListingApiDomain}}"
+					],
+					"path": [
+						"offers",
+						"6e10cff7-d212-483b-a461-651ca6ebd520",
+						"accept"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/offers/{uuid}/cancel",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "x-cognito-user-id",
+						"value": "{{x-cognito-user-id}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{ListingApiDomain}}/offers/50f15b00-f741-4752-88ee-1ebcad112aa1/cancel",
+					"host": [
+						"{{ListingApiDomain}}"
+					],
+					"path": [
+						"offers",
+						"50f15b00-f741-4752-88ee-1ebcad112aa1",
+						"cancel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/categories",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-cognito-user-id",
+						"value": "{{x-cognito-user-id}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{ListingApiDomain}}/categories?categoryType=SERVICE",
+					"host": [
+						"{{ListingApiDomain}}"
+					],
+					"path": [
+						"categories"
+					],
+					"query": [
+						{
+							"key": "categoryType",
+							"value": "SERVICE"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/wallets",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-cognito-user-id",
+						"value": "{{x-cognito-user-id}}",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "{{AccessToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"chain\": \"ETHEREUM\",\n  \"walletType\": \"METAMASK\",\n  \"network\": \"Sepolia\",\n  \"balance\": \"0.1897\",\n  \"currency\": \"ETH\",\n  \"address\": \"0x2E2F5B35a9e305bAF5fc5431b55797Ef20721421\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ListingApiDomain}}/wallets",
+					"host": [
+						"{{ListingApiDomain}}"
+					],
+					"path": [
+						"wallets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/wallets/{uuid}",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "x-cognito-user-id",
+						"value": "{{x-cognito-user-id}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{ListingApiDomain}}/wallets/9c967ebe-abc8-416a-9f5e-e5d02e90271b",
+					"host": [
+						"{{ListingApiDomain}}"
+					],
+					"path": [
+						"wallets",
+						"9c967ebe-abc8-416a-9f5e-e5d02e90271b"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/wallets/mine",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-cognito-user-id",
+						"value": "{{x-cognito-user-id}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{ListingApiDomain}}/wallets/mine",
+					"host": [
+						"{{ListingApiDomain}}"
+					],
+					"path": [
+						"wallets",
+						"mine"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/orders",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-cognito-user-id",
+						"value": "{{x-cognito-user-id}}",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "{{AccessToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"offerUuid\": \"08fef2af-a1ed-465a-b6b3-da53425f83de\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ListingApiDomain}}/orders",
+					"host": [
+						"{{ListingApiDomain}}"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/orders/{uuid}/complete",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "x-cognito-user-id",
+						"value": "{{x-cognito-user-id}}",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{AccessToken}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{ListingApiDomain}}/orders/a9e898a9-77f5-45a5-950f-225e9a1fe6e2/complete",
+					"host": [
+						"{{ListingApiDomain}}"
+					],
+					"path": [
+						"orders",
+						"a9e898a9-77f5-45a5-950f-225e9a1fe6e2",
+						"complete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/orders/{uuid}/cancel",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "x-cognito-user-id",
+						"value": "{{x-cognito-user-id}}",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{AccessToken}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"offerUuid\": \"08fef2af-a1ed-465a-b6b3-da53425f83de\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ListingApiDomain}}/orders/adc88a2c-4219-4940-bee0-fc09eba1d9ba/cancel",
+					"host": [
+						"{{ListingApiDomain}}"
+					],
+					"path": [
+						"orders",
+						"adc88a2c-4219-4940-bee0-fc09eba1d9ba",
+						"cancel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/notifications",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-cognito-user-id",
+						"value": "{{x-cognito-user-id}}",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{AccessToken}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{ListingApiDomain}}/notifications?updatedAtStart=2023-11-10T04:37:50.375Z&limit=10&after=0&updatedAtEnd=2024-02-24T23:37:50.375Z",
+					"host": [
+						"{{ListingApiDomain}}"
+					],
+					"path": [
+						"notifications"
+					],
+					"query": [
+						{
+							"key": "updatedAtStart",
+							"value": "2023-11-10T04:37:50.375Z"
+						},
+						{
+							"key": "limit",
+							"value": "10"
+						},
+						{
+							"key": "after",
+							"value": "0"
+						},
+						{
+							"key": "updatedAtEnd",
+							"value": "2024-02-24T23:37:50.375Z"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ethereum/alchemy-webhook",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-cognito-user-id",
+						"value": "{{x-cognito-user-id}}",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "{{AccessToken}}",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "x-alchemy-signature",
+						"value": "19731b09e4bfe4e0224599a87651da52ff9bbff8ea85e29c9e6ffa5bd13713e7",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"webhookId\": \"wh_u9t5f6svagdph5md\",\n  \"id\": \"whevt_mc4epdgdb3vzxbwj\",\n  \"createdAt\": \"2024-01-08T05:22:13.615Z\",\n  \"type\": \"GRAPHQL\",\n  \"event\": {\n    \"data\": {\n      \"block\": {\n        \"hash\": \"0x9423d5bcb02b3c6f088f060b860f338a7bbc5d036f1ec886c4f5a876bb46ca7f\",\n        \"number\": 5044600,\n        \"timestamp\": 1704691332,\n        \"logs\": [\n          {\n            \"data\": \"0x00000000000000000000000000000000000000000000000000138a388a43c0000000000000000000000000005ce074129204d97af5e9565d6bd8c14a1e84cfaf\",\n            \"topics\": [\n              \"0x68cd4033b378f1f2c1b9d7c61bfb93edacd371518fa0efd6d5a79ae24f3cadd9\",\n              \"0x00000000000000000000000000000000d3a10ad0548a484e95846075fceca6be\"\n            ],\n            \"index\": 77,\n            \"account\": {\n              \"address\": \"0x0c19fcbd1b5f14f51d28df16d26c5990dfdbaa96\"\n            },\n            \"transaction\": {\n              \"hash\": \"0xac6d3a77629c2c25624597a30809d7187ccda46c4ce48510c727ec8ec1b5f11e\",\n              \"nonce\": 34,\n              \"index\": 52,\n              \"from\": {\n                \"address\": \"0xb6282751f7803ed2e250af98ceaff5339716eab8\"\n              },\n              \"to\": {\n                \"address\": \"0x0c19fcbd1b5f14f51d28df16d26c5990dfdbaa96\"\n              },\n              \"value\": \"0x138a388a43c000\",\n              \"gasPrice\": \"0x937a26830\",\n              \"maxFeePerGas\": \"0xb0d9ad600\",\n              \"maxPriorityFeePerGas\": \"0x59682f00\",\n              \"gas\": 105669,\n              \"status\": 1,\n              \"gasUsed\": 100694,\n              \"cumulativeGasUsed\": 7877351,\n              \"effectiveGasPrice\": \"0x937a26830\",\n              \"createdContract\": null\n            }\n          }\n        ]\n      }\n    },\n    \"sequenceNumber\": \"10000000032548892000\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ListingApiDomain}}/ethereum/alchemy-webhook",
+					"host": [
+						"{{ListingApiDomain}}"
+					],
+					"path": [
+						"ethereum",
+						"alchemy-webhook"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

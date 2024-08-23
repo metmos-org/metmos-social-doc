@@ -1,0 +1,440 @@
+{
+	"info": {
+		"_postman_id": "645a7909-e362-46bc-a923-eb6d7b5b4142",
+		"name": "Smoke Test - Chat",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30857123"
+	},
+	"item": [
+		{
+			"name": "Search user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseData = pm.response.json();",
+							"var user2Uuid = responseData.people[0].uuid;",
+							"pm.environment.set(\"user2Uuid\", user2Uuid);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{AccessToken}}",
+						"type": "text"
+					},
+					{
+						"key": "x-cognito-user-id",
+						"value": "{{x-cognito-user-id}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{PeopleApiDomain}}/people?q={{username-2}}&limit=20&after=-1",
+					"host": [
+						"{{PeopleApiDomain}}"
+					],
+					"path": [
+						"people"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "{{username-2}}"
+						},
+						{
+							"key": "limit",
+							"value": "20"
+						},
+						{
+							"key": "after",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Request to connect",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{AccessToken}}",
+						"type": "text"
+					},
+					{
+						"key": "x-cognito-user-id",
+						"value": "{{x-cognito-user-id}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"personUuid\": \"{{user2Uuid}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{PeopleApiDomain}}/connections",
+					"host": [
+						"{{PeopleApiDomain}}"
+					],
+					"path": [
+						"connections"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get connections",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseData = pm.response.json();",
+							"var connection1Uuid = responseData.connections[0].uuid;",
+							"pm.environment.set(\"connection1Uuid\", connection1Uuid);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{AccessToken2}}",
+						"type": "text"
+					},
+					{
+						"key": "x-cognito-user-id",
+						"value": "{{x-cognito-user-id-2}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{PeopleApiDomain}}/connections?after=-1&limit=20",
+					"host": [
+						"{{PeopleApiDomain}}"
+					],
+					"path": [
+						"connections"
+					],
+					"query": [
+						{
+							"key": "after",
+							"value": "-1"
+						},
+						{
+							"key": "limit",
+							"value": "20"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Accept connection",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{AccessToken2}}",
+						"type": "text"
+					},
+					{
+						"key": "x-cognito-user-id",
+						"value": "{{x-cognito-user-id-2}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{PeopleApiDomain}}/connections/{{connection1Uuid}}/accept",
+					"host": [
+						"{{PeopleApiDomain}}"
+					],
+					"path": [
+						"connections",
+						"{{connection1Uuid}}",
+						"accept"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Start chat",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{AccessToken}}",
+						"type": "text"
+					},
+					{
+						"key": "x-cognito-user-id",
+						"value": "{{x-cognito-user-id}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \n  \"chatType\": \"CONTACT\",  \n  \"receiverPersonUuid\": \"{{user2Uuid}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{PeopleApiDomain}}/chats",
+					"host": [
+						"{{PeopleApiDomain}}"
+					],
+					"path": [
+						"chats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search user 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseData = pm.response.json();",
+							"var user3Uuid = responseData.people[0].uuid;",
+							"pm.environment.set(\"user3Uuid\", user3Uuid);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{AccessToken}}",
+						"type": "text"
+					},
+					{
+						"key": "x-cognito-user-id",
+						"value": "{{x-cognito-user-id}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{PeopleApiDomain}}/people?q={{{{username-3}}&limit=20&after=-1",
+					"host": [
+						"{{PeopleApiDomain}}"
+					],
+					"path": [
+						"people"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "{{{{username-3}}"
+						},
+						{
+							"key": "limit",
+							"value": "20"
+						},
+						{
+							"key": "after",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Request to connect 2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{AccessToken}}",
+						"type": "text"
+					},
+					{
+						"key": "x-cognito-user-id",
+						"value": "{{x-cognito-user-id}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"personUuid\": \"{{user3Uuid}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{PeopleApiDomain}}/connections",
+					"host": [
+						"{{PeopleApiDomain}}"
+					],
+					"path": [
+						"connections"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get connections 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseData = pm.response.json();",
+							"var connection2Uuid = responseData.connections[0].uuid;",
+							"pm.environment.set(\"connection2Uuid\", connection2Uuid);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{AccessToken3}}",
+						"type": "text"
+					},
+					{
+						"key": "x-cognito-user-id",
+						"value": "{{x-cognito-user-id-3}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{PeopleApiDomain}}/connections?after=-1&limit=20",
+					"host": [
+						"{{PeopleApiDomain}}"
+					],
+					"path": [
+						"connections"
+					],
+					"query": [
+						{
+							"key": "after",
+							"value": "-1"
+						},
+						{
+							"key": "limit",
+							"value": "20"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Accept connection 2",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{AccessToken3}}",
+						"type": "text"
+					},
+					{
+						"key": "x-cognito-user-id",
+						"value": "{{x-cognito-user-id-3}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{PeopleApiDomain}}/connections/{{connection2Uuid}}/accept",
+					"host": [
+						"{{PeopleApiDomain}}"
+					],
+					"path": [
+						"connections",
+						"{{connection2Uuid}}",
+						"accept"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Start chat 2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{AccessToken}}",
+						"type": "text"
+					},
+					{
+						"key": "x-cognito-user-id",
+						"value": "{{x-cognito-user-id}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \n  \"chatType\": \"CONTACT\",  \n  \"receiverPersonUuid\": \"{{user3Uuid}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{PeopleApiDomain}}/chats",
+					"host": [
+						"{{PeopleApiDomain}}"
+					],
+					"path": [
+						"chats"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
