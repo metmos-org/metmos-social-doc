@@ -1,5 +1,10 @@
 # Metmos Social Technical Overview
 
+## What is Metmos Social?
+This platform blends social networking with digital commerce, making it easy to connect, share, and trade online. Leveraging blockchain technologies, cryptocurrency payment and generative AI, we strive to provide a secure, private, and efficient platform for diverse digital interactions. 
+
+[Learn more](https://metmos.io/social-home/)
+
 ## Purpose
 This page provides a brief description about Metmos Social App tech solutions and designs. If you're interested in learning more about this product or involving in the project, please reach out to us.
 
@@ -7,6 +12,36 @@ This page provides a brief description about Metmos Social App tech solutions an
 
 Overview of key infrastructure components
 ![Architecture Diagram](assets/platform-architecture.png)
+
+## API Documentation
+
+TBA
+
+## Tech Stacks and Tools
+
+- Node.js
+- Nest.js
+- TypeScript
+- TypeORM
+- React Native
+- React Native Paper
+- Solidity
+- HardHat
+- Alchemy
+- ethers.js
+- Cognito
+- API Gateway
+- Lambda
+- WebSocket
+- Amplify
+- AWS CDK
+- S3
+- CloudFront
+- Aurora PostgreSQL
+- Pinpoint
+- Ethereum
+- MetaMask
+- WalletConnect
 
 ## Data Model
 
@@ -114,6 +149,26 @@ Message received via WebSocket
 
 Outside of WebSocket, whenever the chat screen needs to sync with backend (e.g. when a user opens the chat screen or pull down to refresh), invoke GET /chats/{chatUuid}/messages  and it will return message with assetUuids . If assetUuids  is not empty, it means the message represent assets, then the app should invoke GET /assets  with parentUuid=message_uuid to get the asset download links.
 
+## Payment
+This section shows how we capture, secure and distribute crypto currency payment for marketplace offers.
+
+High level payment flow
+![Payment](assets/payment.png)
+
+## Push Notification
+We use AWS Amplify and Pinpoint to deliver push notifications. For example, one use case is informing the app that a new message has arrived while the app is either exited or backgrounded (e.g. no active web socket connection). The backend will integrate with Pinpoint to deliver messages via push notification, email or SMS whenever applicable. This is all handled transparently from the app's perspective. The app mainly needs to send the push token to the register device endpoint and be able to respond to the push notifications.
+
+Push Notification List
+| NotificationType     | Trigger                                                              | Recipient               |
+|----------------------|----------------------------------------------------------------------|-------------------------|
+| NEW_CHAT_MESSAGE      | Send a chat message while the recipient is offline (no active WebSocket). | The offline participant |
+| OFFER_RECEIVED        | A new offer is made                                                 | Poster                  |
+| OFFER_ACCEPTED        | An offer is accepted                                                | Offeror                 |
+| PAYMENT_CONFIRMED     | Transfer is confirmed on Escrow account                             | Poster<br>Offeror        |
+| LISTING_COMPLETED     | Order is completed and funds transferred to the payee               | Payee<br>Payer           |
+| ORDER_CANCELLED       | Order is cancelled and deposit is refunded to the payer             | Payee<br>Payer           |
+
+
 ## Assets
 Asset in our system means images, videos, and other type of files in general.
 `S3` is our asset repository. All assets stored in our S3 bucket are private. Mobile app will upload assets to a S3 bucket via a securely `signed temporary URL`. 
@@ -174,3 +229,17 @@ The response contains a pre-signed CloudFront URL `presignedDownloadUrl` to retr
     ]
 }
 ```
+
+## Listing
+
+Listing lifecycle
+![Listing lifecycle](assets/listing-lifecycle.png)
+
+Offer lifecycle
+![Offer lifecycle](assets/offer-lifecycle.png)
+
+How to determine the Payer and Payee on an offer?
+|                | ITEM_SALE | SERVICE_SALE | ITEM_PURCHASE | SERVICE_PURCHASE |
+|----------------|-----------|--------------|---------------|------------------|
+| Payer          | Offeror   | Offeror      | Poster        | Poster           |
+| Payee          | Poster    | Poster       | Offeror       | Offeror          |
